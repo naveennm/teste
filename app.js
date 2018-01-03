@@ -160,4 +160,7 @@ console.log(req.body.text);
 
 
 
-app.listen(80);
+app.listen(80, function(err) {
+    console.log("Err");
+    console.log(err);
+});
