@@ -4,7 +4,8 @@
   "description": "angualar nodeks",
   "main": "app.js",
   "scripts": {
-    "test": "crud"
+    "test": "node ./bin/www",
+    "deploy" : "gcloud preview app deploy"
   },
   "repository": {
     "type": "git",

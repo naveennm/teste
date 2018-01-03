@@ -160,7 +160,6 @@ console.log(req.body.text);
 
 
 
-app.listen(80, function(err) {
-    console.log("Err");
-    console.log(err);
-});
+    var port = process.env.port || 8080;
+
+    app.listen(port);
