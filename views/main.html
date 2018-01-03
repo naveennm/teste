@@ -1,0 +1,138 @@
+<html>
+<head>
+    <!-- META -->
+   
+
+    <title>App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+
+    <!-- SPELLS -->
+   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script>
+    	
+    	var myapp = angular.module('myapp', []);
+function mainController($scope, $http) {
+    resData = "Enter Details";
+
+    // when landing on the page, get all todos and show them
+    $http.get('/api/todos')
+        .success(function(data) {
+            $scope.todos = data;
+            console.log(data);
+            resData = "Enter Details";
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+
+    // when submitting the add form, send the text to the node API
+
+    // $scope.createTodo = function() {
+    //    // console.log($scope.text);
+    //     $http.post('/api/todo', {$scope.text})
+    //         .success(function(data) {
+    //             $scope.todos = data;
+    //             console.log(data);
+    //         })
+    //         .error(function(data) {
+    //             console.log('Error: ' + data);
+    //         });
+    // };
+       $scope.createTodo = function() {
+        $http.post('/api/todos', $scope.formData)
+            .success(function(data) {
+                $scope.formData = {}; // clear the form so our user is ready to enter another
+                $scope.todos = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
+     
+
+    // delete a todo after checking it
+    $scope.deleteTodo = function(id) {
+        $http.delete('/api/todos/' + id)
+            .success(function(data) {
+                $scope.todos = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
+
+    //  $scope.editTodo = function(id) {
+    //     $http.put('/api/todos/' + id)
+    //         .success(function(data) {
+    //             $scope.todos = data;
+    //             console.log(data);
+    //         })
+    //         .error(function(data) {
+    //             console.log('Error: ' + data);
+    //         });
+    // };
+$scope.editTodo = function(todo) {
+   
+    $scope.updates = todo.text;
+    updates = $scope.text;
+   
+    //$scope.update(todo);
+   // $scope.save = true;
+
+};
+
+$scope.update = function(todo) {
+    var id = todo._id;
+     $http.put('/api/todos/' + id, { text: $scope.updates })
+        .success(function(todos) {
+            console.log(todos);
+           location.reload(); 
+            $scope.save = true;
+
+        })
+        .error(function() {
+            console.log('Error: ');
+        });
+}
+
+}
+</script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body  ng-app="myapp" >
+    <div class="container" ng-controller="mainController">
+        <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="Enter text" ng-model="formData.text">
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+                </form>
+
+                
+                 <div class="checkbox" ng-repeat="todo in todos">
+                    <label>
+                        <input type="button" class="btn btn-primary btn-lg" ng-click="deleteTodo(todo._id)" value="delete"> <input type="button" class="btn btn-primary btn-lg" ng-click="editTodo(todo)" value="edit"> {{ todo.text }}   
+                        <button type="button" class="btn btn-primary btn-lg"  ng-click="update(todo)">save</button>
+                    </label>
+                </div>
+                <div>
+                    <input type="text" class="form-control input-lg text-center" placeholder="{{resData}}" ng-model="updates"><br>
+                </div>
+    </div>
+</body>
+</html>        
