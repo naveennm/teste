@@ -7,6 +7,25 @@
 
     // configuration =================
 
+    var uri = 'mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123';
+
+var options = {
+  "server" : {
+    "socketOptions" : {
+      "keepAlive" : 300000,
+      "connectTimeoutMS" : 30000
+    }
+  },
+  "replset" : {
+    "socketOptions" : {
+      "keepAlive" : 300000,
+      "connectTimeoutMS" : 30000
+    }
+  }
+}
+
+mongoose.connect(uri, options);
+
     mongoose.connect('mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123');       // connect to mongoDB database on modulus.io
 
     app.use(express.static(__dirname + '/public'));   
