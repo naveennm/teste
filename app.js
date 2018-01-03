@@ -26,7 +26,7 @@ var options = {
 
 mongoose.connect(uri, options);
 
-    mongoose.connect('mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123');       // connect to mongoDB database on modulus.io
+   // mongoose.connect('mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123');       // connect to mongoDB database on modulus.io
 
     app.use(express.static(__dirname + '/public'));   
     app.use(express.static(__dirname + '/views'));              // set the static files location /public/img will be /img for users
