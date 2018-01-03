@@ -7,7 +7,7 @@
 
     // configuration =================
 
-    var uri = 'mongodb://localhost:28017/test';
+    var uri = 'mongodb://localhost:27017/test';
 
 var options = {
   "server" : {
