@@ -24,7 +24,12 @@ var options = {
   }
 }
 
-mongoose.connect(uri, options);
+mongoose.connect(uri, function(err, result) {
+    if(err){
+        console.log(err);
+    }
+    console.log(result);
+});
 
    // mongoose.connect('mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123');       // connect to mongoDB database on modulus.io
 
