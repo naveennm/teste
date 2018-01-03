@@ -7,7 +7,7 @@
 
     // configuration =================
 
-    var uri = 'mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123';
+    var uri = 'mongodb://localhost:28017/test';
 
 var options = {
   "server" : {
@@ -24,11 +24,11 @@ var options = {
   }
 }
 
-mongoose.connect(uri, function(err, result) {
+mongoose.connect(uri, function(err) {
     if(err){
         console.log(err);
     }
-    console.log(result);
+    console.log("d");
 });
 
    // mongoose.connect('mongodb://mconnect:mconnect123@ds239117.mlab.com:39117/test123');       // connect to mongoDB database on modulus.io
